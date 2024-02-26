@@ -1,4 +1,58 @@
+import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { LOGIN } from "@/graphql/mutation";
+import { SESSION } from "@/graphql/query";
+import { useMutation } from "@apollo/client";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import { z } from "zod";
+
+const formSchema = z.object({
+  email: z.string().email(),
+  password: z.string(),
+});
+
 export default function LoginPage() {
+  const [login, { loading }] = useMutation(LOGIN);
+  const navigate = useNavigate();
+
+  // 1. Define your form.
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      email: "admin@techvill.net",
+      password: "123456",
+    },
+  });
+
+  // 2. Define a submit handler.
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    // Do something with the form values.
+    // ✅ This will be type-safe and validated.
+    toast.promise(
+      login({
+        variables: { loginInput: values },
+        refetchQueries: [{ query: SESSION }],
+        onCompleted: () => navigate("/"),
+      }),
+      {
+        loading: "Loading...",
+        success: ({ data }) => data.login.message,
+        error: "Login failed",
+      },
+    );
+  }
+
   return (
     <main>
       <section className="grid min-h-screen place-items-center">
@@ -9,36 +63,39 @@ export default function LoginPage() {
               src="https://merakiui.com/images/logo.svg"
             />
           </div>
-          <form className="mt-6">
-            <div>
-              <label htmlFor="username" className="block text-sm text-gray-800">
-                Username
-              </label>
-              <input
-                type="text"
-                className="mt-2 block w-full rounded-lg border bg-white px-4 py-2 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40"
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Email</FormLabel>
+                    <FormControl>
+                      <Input {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
               />
-            </div>
-            <div className="mt-4">
-              <div className="flex items-center justify-between">
-                <label
-                  htmlFor="password"
-                  className="block text-sm text-gray-800"
-                >
-                  Password
-                </label>
-              </div>
-              <input
-                type="password"
-                className="mt-2 block w-full rounded-lg border bg-white px-4 py-2 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 "
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Password</FormLabel>
+                    <FormControl>
+                      <Input {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
               />
-            </div>
-            <div className="mt-6">
-              <button className="w-full transform rounded-lg bg-gray-800 px-6 py-2.5 text-sm font-medium capitalize tracking-wide text-white transition-colors duration-300 hover:bg-gray-700 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50">
-                Sign In
-              </button>
-            </div>
-          </form>
+              <Button type="submit" className="w-full" disabled={loading}>
+                Submit
+              </Button>
+            </form>
+          </Form>
         </div>
       </section>
     </main>
