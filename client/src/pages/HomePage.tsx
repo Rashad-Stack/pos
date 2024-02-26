@@ -1,4 +1,6 @@
+import AddCustomer from "@/components/AddCustomer";
 import CartButton from "@/components/CartButton";
+import CartHeaderButtons from "@/components/CartHeaderButtons";
 import ProductCard from "@/components/ProductCard";
 import ProductFilterByCategory from "@/components/ProductFilterByCategory";
 import ProductSearch from "@/components/ProductSearch";
@@ -9,7 +11,10 @@ export default function HomePage() {
       <div className="container mx-auto max-w-max px-0">
         <div className="grid lg:grid-cols-5">
           <div className="col-span-2 max-lg:hidden">
-            <div className="sticky top-0">hello</div>
+            <div className="sticky top-0 space-y-4 p-4">
+              <CartHeaderButtons />
+              <AddCustomer />
+            </div>
           </div>
           <div className="col-span-3">
             <div className="sticky top-0 bg-white">

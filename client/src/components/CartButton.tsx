@@ -1,12 +1,14 @@
 import {
   Sheet,
   SheetContent,
-  SheetDescription,
   SheetHeader,
-  SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { HiOutlineShoppingCart } from "react-icons/hi2";
+import AddCustomer from "./AddCustomer";
+import CartCard from "./CartCard";
+import CartHeaderButtons from "./CartHeaderButtons";
+import Checkout from "./Checkout";
 
 export default function CartButton() {
   return (
@@ -17,14 +19,20 @@ export default function CartButton() {
           6
         </span>
       </SheetTrigger>
-      <SheetContent>
+      <SheetContent className="overflow-y-auto lg:hidden">
         <SheetHeader>
-          <SheetTitle>Are you absolutely sure?</SheetTitle>
-          <SheetDescription>
-            This action cannot be undone. This will permanently delete your
-            account and remove your data from our servers.
-          </SheetDescription>
+          <CartHeaderButtons />
+          <AddCustomer />
         </SheetHeader>
+        <div className="my-10 space-y-4">
+          <CartCard />
+          <CartCard />
+          <CartCard />
+          <CartCard />
+          <CartCard />
+          <CartCard />
+        </div>
+        <Checkout />
       </SheetContent>
     </Sheet>
   );
