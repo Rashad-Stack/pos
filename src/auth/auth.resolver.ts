@@ -1,9 +1,12 @@
 import { UseGuards } from "@nestjs/common";
-import { Args, Context, Mutation, Resolver } from "@nestjs/graphql";
+import { Args, Context, Mutation, Query, Resolver } from "@nestjs/graphql";
 import { Response } from "express";
+import { Types } from "mongoose";
+import { User } from "src/user/schema/user.schema";
 import { UserService } from "src/user/user.service";
 import { AuthGuard } from "./auth.guard";
 import { AuthService } from "./auth.service";
+import { CurrentUser } from "./current.user.decorator";
 import { LoggedInUser, LoginInput } from "./dto/auth.dto";
 
 @Resolver()
@@ -29,6 +32,16 @@ export class AuthResolver {
       user: data.user,
       message: "Login successful!",
     };
+  }
+
+  @Query(() => User)
+  @UseGuards(AuthGuard)
+  async session(@CurrentUser() currentUser: Types.ObjectId): Promise<User> {
+    // Find the user by id
+    const user = await this.userService.findOne(currentUser);
+
+    // Return the user
+    return user;
   }
 
   @Mutation(() => String)

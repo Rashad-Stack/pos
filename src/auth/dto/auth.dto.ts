@@ -14,12 +14,6 @@ export class LoginInput {
   password: string;
 }
 
-@ObjectType("session")
-export class Session {
-  @Field(() => User, { nullable: true })
-  user: User;
-}
-
 @ObjectType("LoggedInUser")
 export class LoggedInUser {
   @Field(() => User)

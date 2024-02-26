@@ -44,7 +44,6 @@ export class AuthService {
       // Return the token and the user
       return { user, token };
     } catch (error) {
-      console.log(error);
       throw error;
     }
   }

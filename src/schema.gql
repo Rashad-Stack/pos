@@ -24,6 +24,7 @@ type Mutation {
 }
 
 type Query {
+  session: User!
   users: String!
 }
 
@@ -33,9 +34,8 @@ type Signup {
 }
 
 type User {
-  _id: String!
+  _id: ID!
   email: String!
   password: String!
   role: String!
-  watchPoint: Float!
 }
