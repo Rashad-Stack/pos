@@ -1,3 +1,9 @@
+import CartButton from "@/components/CartButton";
+
 export default function HomePage() {
-  return <div>HomePage</div>;
+  return (
+    <div>
+      <CartButton />
+    </div>
+  );
 }
