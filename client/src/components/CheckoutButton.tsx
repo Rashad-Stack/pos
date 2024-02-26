@@ -12,7 +12,7 @@ export default function CheckoutButton() {
         <p>Product count (2)</p>
         <p>Total $221.00</p>
       </div>
-      <div className="mt-4 flex flex-wrap space-y-4">
+      <div className="mt-4 flex flex-col gap-4 xl:flex-row">
         <Button
           variant="secondary"
           className="flex w-full items-center justify-center gap-2 rounded-sm bg-red-200 text-lg text-red-600"

@@ -17,11 +17,11 @@ export default function CartCard() {
         <div className="flex items-center gap-3 font-bold">
           <div className="flex gap-2">
             <button>
-              <HiOutlinePlus className="h-4 w-4" />
+              <HiOutlineMinus className="h-4 w-4" />
             </button>
             <span>4</span>
             <button>
-              <HiOutlineMinus className="h-4 w-4" />
+              <HiOutlinePlus className="h-4 w-4" />
             </button>
           </div>
           <p className="text-xs">Total: $400</p>

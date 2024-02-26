@@ -9,6 +9,7 @@ import AddCustomer from "./AddCustomer";
 import CartCard from "./CartCard";
 import CartHeaderButtons from "./CartHeaderButtons";
 import Checkout from "./Checkout";
+import CheckoutButton from "./CheckoutButton";
 
 export default function CartButton() {
   return (
@@ -33,6 +34,7 @@ export default function CartButton() {
           <CartCard />
         </div>
         <Checkout />
+        <CheckoutButton />
       </SheetContent>
     </Sheet>
   );
