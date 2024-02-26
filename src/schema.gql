@@ -20,6 +20,7 @@ input LoginInput {
 type Mutation {
   createUser(createUserInput: CreateUserInput!): Signup!
   login(loginInput: LoginInput!): LoggedInUser!
+  logout: String!
 }
 
 type Query {

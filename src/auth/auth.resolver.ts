@@ -1,6 +1,8 @@
+import { UseGuards } from "@nestjs/common";
 import { Args, Context, Mutation, Resolver } from "@nestjs/graphql";
 import { Response } from "express";
 import { UserService } from "src/user/user.service";
+import { AuthGuard } from "./auth.guard";
 import { AuthService } from "./auth.service";
 import { LoggedInUser, LoginInput } from "./dto/auth.dto";
 
@@ -27,5 +29,12 @@ export class AuthResolver {
       user: data.user,
       message: "Login successful!",
     };
+  }
+
+  @Mutation(() => String)
+  @UseGuards(AuthGuard)
+  async logout(@Context() { res }: { res: Response; req: Request }) {
+    res.clearCookie("token");
+    return "Logout successful!";
   }
 }
