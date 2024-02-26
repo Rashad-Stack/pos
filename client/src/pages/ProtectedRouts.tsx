@@ -9,7 +9,7 @@ export default function ProtectedRouts() {
 
   return loading ? (
     <div className="absolute inset-0 flex items-center justify-center">
-      <div className="h-16 w-16 animate-spin rounded-full border-8 border-dashed border-blue-600" />
+      <div className="h-16 w-16 animate-spin rounded-full border-8 border-dashed border-indigo-400" />
     </div>
   ) : user ? (
     <Outlet />

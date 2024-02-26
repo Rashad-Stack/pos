@@ -48,7 +48,7 @@ export default function LoginPage() {
       {
         loading: "Loading...",
         success: ({ data }) => data.login.message,
-        error: "Login failed",
+        error: (error) => error?.message,
       },
     );
   }
