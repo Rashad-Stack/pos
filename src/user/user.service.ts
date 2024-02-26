@@ -2,9 +2,10 @@ import {
   ConflictException,
   Injectable,
   InternalServerErrorException,
+  NotFoundException,
 } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
-import { Model } from "mongoose";
+import { Model, Types } from "mongoose";
 import { CreateUserInput } from "./dto/user.dto";
 import { User, UserDocument } from "./schema/user.schema";
 
@@ -30,6 +31,22 @@ export class UserService {
         });
       }
 
+      throw new InternalServerErrorException(error);
+    }
+  }
+
+  async findOne(userId: Types.ObjectId): Promise<User> {
+    try {
+      const user = await this.userModel.findOne({
+        _id: userId,
+      });
+      if (!user) {
+        throw new NotFoundException("user does not exist!", {
+          cause: new Error("Invalid credentials!"),
+        });
+      }
+      return user;
+    } catch (error) {
       throw new InternalServerErrorException(error);
     }
   }
