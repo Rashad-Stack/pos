@@ -10,10 +10,7 @@ async function bootstrap() {
   app.use(cookieParser());
   app.useGlobalPipes(new ValidationPipe());
   app.enableCors({
-    origin:
-      process.env.NODE_ENV === "production"
-        ? process.env.CLIENT_PROD_URL
-        : process.env.CLIENT_DEV_URL,
+    origin: process.env.CLIENT_URL,
     credentials: true,
   });
 

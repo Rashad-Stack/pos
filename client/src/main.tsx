@@ -11,7 +11,9 @@ import App from "./App.tsx";
 import "./index.css";
 
 const link = createHttpLink({
-  uri: import.meta.env.API_URL + "/graphql",
+  uri: import.meta.env.PROD
+    ? import.meta.env.BASE_URL + "graphql"
+    : import.meta.env.VITE_SERVER_DEV_URL + "/graphql",
   credentials: "include",
 });
 
