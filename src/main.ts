@@ -1,8 +1,22 @@
+import { ValidationPipe } from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
+import * as cookieParser from "cookie-parser";
 import { AppModule } from "./app.module";
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  await app.listen(3000);
+
+  app.setGlobalPrefix("graphql");
+  app.use(cookieParser());
+  app.useGlobalPipes(new ValidationPipe());
+  app.enableCors({
+    origin:
+      process.env.NODE_ENV === "production"
+        ? process.env.CLIENT_PROD_URL
+        : process.env.CLIENT_DEV_URL,
+    credentials: true,
+  });
+
+  await app.listen(process.env.PORT || 3000);
 }
 bootstrap();
