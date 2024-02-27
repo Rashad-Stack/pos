@@ -2,6 +2,12 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Category {
+  _id: ID!
+  name: String!
+  products: [Product!]!
+}
+
 input CreateUserInput {
   email: String!
   password: String!
@@ -23,7 +29,15 @@ type Mutation {
   logout: String!
 }
 
+type Product {
+  _id: ID!
+  image: String!
+  name: String!
+  price: Int!
+}
+
 type Query {
+  getAllCategory: allCategory!
   session: User!
   users: String!
 }
@@ -38,4 +52,10 @@ type User {
   email: String!
   password: String!
   role: String!
+}
+
+type allCategory {
+  categories: [Category!]!
+  pages: Int!
+  total: Int!
 }

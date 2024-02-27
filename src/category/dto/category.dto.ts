@@ -2,7 +2,7 @@ import { Field, Int, ObjectType } from "@nestjs/graphql";
 import { IsNotEmpty } from "class-validator";
 import { Category } from "../schema/category.schema";
 
-@ObjectType()
+@ObjectType("allCategory")
 export class ICategory {
   @Field(() => Int)
   total: number;
@@ -12,5 +12,5 @@ export class ICategory {
   pages: number;
 
   @Field(() => [Category])
-  products: Category[];
+  categories: Category[];
 }
