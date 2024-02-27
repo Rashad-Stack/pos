@@ -15,3 +15,10 @@ export type Product = {
   price: number;
   image: string;
 };
+
+export type Cart = {
+  _id: string;
+  quantity: number;
+  totalPrice: number;
+  product: Product;
+};

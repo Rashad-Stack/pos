@@ -36,3 +36,22 @@ export const GET_ALL_PRODUCTS = gql`
     }
   }
 `;
+
+export const GET_CART = gql`
+  query GetCart($limit: Int, $page: Int) {
+    allCarts(limit: $limit, page: $page) {
+      total
+      pages
+      carts {
+        _id
+        totalPrice
+        quantity
+        product {
+          _id
+          name
+          price
+        }
+      }
+    }
+  }
+`;

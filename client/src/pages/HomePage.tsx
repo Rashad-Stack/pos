@@ -1,9 +1,7 @@
 import AddCustomer from "@/components/AddCustomer";
 import CartButton from "@/components/CartButton";
-import CartCard from "@/components/CartCard";
 import CartHeaderButtons from "@/components/CartHeaderButtons";
-import Checkout from "@/components/Checkout";
-import CheckoutButton from "@/components/CheckoutButton";
+import CartList from "@/components/CartList";
 import ProductFilterByCategory from "@/components/ProductFilterByCategory";
 import ProductSearch from "@/components/ProductSearch";
 import ProductsList from "@/components/ProductsList";
@@ -18,21 +16,8 @@ export default function HomePage() {
               <CartHeaderButtons />
               <AddCustomer />
             </div>
-            <div className="space-y-4 p-4">
-              <CartCard />
-              <CartCard />
-              <CartCard />
-              <CartCard />
-              <CartCard />
-              <CartCard />
-              <CartCard />
 
-              <div className="flex justify-end">
-                <Checkout />
-              </div>
-
-              <CheckoutButton />
-            </div>
+            <CartList />
           </div>
           <div className="col-span-3">
             <div className="sticky top-0 bg-white">
