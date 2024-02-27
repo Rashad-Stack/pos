@@ -24,6 +24,7 @@ input LoginInput {
 }
 
 type Mutation {
+  createProduct(productInput: ProductInput!): Product!
   createUser(createUserInput: CreateUserInput!): Signup!
   login(loginInput: LoginInput!): LoggedInUser!
   logout: String!
@@ -31,12 +32,21 @@ type Mutation {
 
 type Product {
   _id: ID!
+  category: Category!
+  image: String!
+  name: String!
+  price: Int!
+}
+
+input ProductInput {
+  category: ID!
   image: String!
   name: String!
   price: Int!
 }
 
 type Query {
+  allProducts(limit: Int! = 20, page: Int! = 1): allProducts!
   getAllCategory(limit: Int! = 10, page: Int! = 1): allCategory!
   session: User!
   users: String!
@@ -57,5 +67,11 @@ type User {
 type allCategory {
   categories: [Category!]!
   pages: Int!
+  total: Int!
+}
+
+type allProducts {
+  pages: Int!
+  products: [Product!]!
   total: Int!
 }

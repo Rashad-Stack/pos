@@ -1,6 +1,7 @@
 import { Field, ID, Int, ObjectType } from "@nestjs/graphql";
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { Types } from "mongoose";
+import mongoose, { Types } from "mongoose";
+import { Category } from "src/category/schema/category.schema";
 
 @ObjectType()
 @Schema()
@@ -19,6 +20,10 @@ export class Product {
   @Field(() => String!)
   @Prop({ required: true, type: String })
   image: string;
+
+  @Field(() => Category)
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "Category" })
+  category: Types.ObjectId | Category;
 }
 
 export type ProductDocument = Product & Document;

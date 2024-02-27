@@ -14,6 +14,7 @@ export class CategoryService {
   async findAll(limit: number, page: number): Promise<ICategory> {
     const categories = await this.categoryModel
       .find()
+      .populate("products")
       .limit(limit)
       .skip(limit * (page - 1))
       .exec();
