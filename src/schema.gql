@@ -37,7 +37,7 @@ type Product {
 }
 
 type Query {
-  getAllCategory: allCategory!
+  getAllCategory(limit: Int! = 10, page: Int! = 1): allCategory!
   session: User!
   users: String!
 }
