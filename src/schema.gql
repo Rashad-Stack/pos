@@ -4,10 +4,10 @@
 
 type Cart {
   _id: ID!
-  product: ID!
+  product: Product!
   quantity: Int!
   totalPrice: Int!
-  user: ID!
+  user: User!
 }
 
 type Category {
@@ -32,6 +32,7 @@ input LoginInput {
 }
 
 type Mutation {
+  addToCart(productId: ID!): Cart!
   createProduct(productInput: ProductInput!): Product!
   createUser(createUserInput: CreateUserInput!): Signup!
   login(loginInput: LoginInput!): LoggedInUser!

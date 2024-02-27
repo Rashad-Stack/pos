@@ -18,11 +18,11 @@ export class Cart {
   @Prop({ required: true, type: Number })
   totalPrice: number;
 
-  @Field(() => ID!)
+  @Field(() => User)
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "User" })
   user: Types.ObjectId | User;
 
-  @Field(() => ID!)
+  @Field(() => Product)
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "Product" })
   product: Types.ObjectId | Product;
 }
