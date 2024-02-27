@@ -7,7 +7,7 @@ import CheckoutButton from "./CheckoutButton";
 
 export default function CartList() {
   const { data, loading, error } = useQuery(GET_ALL_CARTS, {
-    variables: { limit: 10, page: 1 },
+    variables: { limit: 50 },
   });
 
   if (loading) return <p>Loading...</p>;
