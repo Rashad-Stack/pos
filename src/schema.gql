@@ -2,6 +2,14 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Cart {
+  _id: ID!
+  product: ID!
+  quantity: Int!
+  totalPrice: Int!
+  user: ID!
+}
+
 type Category {
   _id: ID!
   name: String!
@@ -46,6 +54,7 @@ input ProductInput {
 }
 
 type Query {
+  allCarts(limit: Int! = 10, page: Int! = 1): allCarts!
   allProducts(filter: ID, limit: Int! = 20, page: Int! = 1, search: String): allProducts!
   getAllCategory(limit: Int! = 10, page: Int! = 1): allCategory!
   session: User!
@@ -62,6 +71,12 @@ type User {
   email: String!
   password: String!
   role: String!
+}
+
+type allCarts {
+  carts: [Cart!]!
+  pages: Int!
+  total: Int!
 }
 
 type allCategory {
