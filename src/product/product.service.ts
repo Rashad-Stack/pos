@@ -17,14 +17,34 @@ export class ProductService {
     private readonly categoryModel: Model<CategoryDocument>,
   ) {}
 
-  async findAll(limit: number, page: number): Promise<IProduct> {
-    const products = await this.productModel
-      .find()
+  async findAll(
+    limit: number,
+    page: number,
+    filter: Category,
+    search: string,
+  ): Promise<IProduct> {
+    const promise = this.productModel.find();
+
+    const count = this.productModel.countDocuments();
+
+    if (search) {
+      promise.or([{ name: { $regex: search, $options: "i" } }]);
+      count.or([{ name: { $regex: search, $options: "i" } }]);
+    }
+
+    if (filter) {
+      promise.or([{ category: filter }]);
+      count.or([{ category: filter }]);
+    }
+
+    const products = await promise
       .populate("category")
       .limit(limit)
       .skip(limit * (page - 1))
       .exec();
-    const total = await this.productModel.countDocuments().exec();
+
+    const total = await count.exec();
+
     const pages = Math.ceil(total / limit);
 
     return { total, pages, products };

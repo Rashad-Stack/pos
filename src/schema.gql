@@ -46,7 +46,7 @@ input ProductInput {
 }
 
 type Query {
-  allProducts(limit: Int! = 20, page: Int! = 1): allProducts!
+  allProducts(filter: ID, limit: Int! = 20, page: Int! = 1, search: String): allProducts!
   getAllCategory(limit: Int! = 10, page: Int! = 1): allCategory!
   session: User!
   users: String!
