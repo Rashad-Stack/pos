@@ -1,4 +1,4 @@
-import { GET_CART } from "@/graphql/query";
+import { ALL_CARTS } from "@/graphql/query";
 import { Cart } from "@/types";
 import { useQuery } from "@apollo/client";
 import CartCard from "./CartCard";
@@ -6,7 +6,7 @@ import Checkout from "./Checkout";
 import CheckoutButton from "./CheckoutButton";
 
 export default function CartList() {
-  const { data, loading, error } = useQuery(GET_CART, {
+  const { data, loading, error } = useQuery(ALL_CARTS, {
     variables: { limit: 10, page: 1 },
   });
 

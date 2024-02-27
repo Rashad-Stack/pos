@@ -10,3 +10,13 @@ export const LOGIN = gql`
     }
   }
 `;
+
+export const ADD_TO_CART = gql`
+  mutation AddToCart($productId: ID!) {
+    addToCart(productId: $productId) {
+      _id
+      quantity
+      totalPrice
+    }
+  }
+`;
