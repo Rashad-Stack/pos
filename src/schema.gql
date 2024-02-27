@@ -35,6 +35,8 @@ type Mutation {
   addToCart(productId: ID!): Cart!
   createProduct(productInput: ProductInput!): Product!
   createUser(createUserInput: CreateUserInput!): Signup!
+  decreaseQuantity(productId: ID!): Cart!
+  increaseQuantity(productId: ID!): Cart!
   login(loginInput: LoginInput!): LoggedInUser!
   logout: String!
   removeFromCart(productId: ID!): Cart!

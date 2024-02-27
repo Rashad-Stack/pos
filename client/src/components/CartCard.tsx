@@ -3,12 +3,9 @@ import { ALL_CARTS } from "@/graphql/query";
 import { Cart } from "@/types";
 import { useMutation } from "@apollo/client";
 import toast from "react-hot-toast";
-import {
-  HiOutlineMinus,
-  HiOutlinePencilSquare,
-  HiOutlinePlus,
-  HiOutlineTrash,
-} from "react-icons/hi2";
+import { HiOutlinePencilSquare, HiOutlineTrash } from "react-icons/hi2";
+import DecreaseQuantity from "./DecreaseQuantity";
+import IncreaseQuantity from "./IncreaseQuantity";
 
 type Props = {
   cart: Cart;
@@ -49,13 +46,9 @@ export default function CartCard({ cart }: Props) {
         </div>
         <div className="flex items-center gap-3 font-bold">
           <div className="flex gap-2">
-            <button>
-              <HiOutlineMinus className="h-4 w-4" />
-            </button>
+            <DecreaseQuantity _id={_id} />
             <span>{quantity}</span>
-            <button>
-              <HiOutlinePlus className="h-4 w-4" />
-            </button>
+            <IncreaseQuantity _id={_id} />
           </div>
           <p className="text-xs">Total: ${totalPrice}</p>
         </div>

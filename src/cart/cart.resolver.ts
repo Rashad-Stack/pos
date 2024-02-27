@@ -33,6 +33,24 @@ export class CartResolver {
 
   @Mutation(() => Cart)
   @UseGuards(AuthGuard)
+  async increaseQuantity(
+    @Args("productId", { type: () => ID! }) productId: Types.ObjectId,
+    @CurrentUser() user: User,
+  ): Promise<Cart> {
+    return await this.cartService.incQuantity(productId, user);
+  }
+
+  @Mutation(() => Cart)
+  @UseGuards(AuthGuard)
+  async decreaseQuantity(
+    @Args("productId", { type: () => ID! }) productId: Types.ObjectId,
+    @CurrentUser() user: User,
+  ): Promise<Cart> {
+    return await this.cartService.dcQuantity(productId, user);
+  }
+
+  @Mutation(() => Cart)
+  @UseGuards(AuthGuard)
   async removeFromCart(
     @Args("productId", { type: () => ID! }) productId: Types.ObjectId,
     @CurrentUser() user: User,

@@ -30,3 +30,23 @@ export const REMOVE_FROM_CART = gql`
     }
   }
 `;
+
+export const INCREASE_QUANTITY = gql`
+  mutation IncreaseQuantity($productId: ID!) {
+    increaseQuantity(productId: $productId) {
+      _id
+      quantity
+      totalPrice
+    }
+  }
+`;
+
+export const DECREASE_QUANTITY = gql`
+  mutation DecreaseQuantity($productId: ID!) {
+    decreaseQuantity(productId: $productId) {
+      _id
+      quantity
+      totalPrice
+    }
+  }
+`;

@@ -89,6 +89,61 @@ export class CartService {
     }
   }
 
+  async incQuantity(cartId: Types.ObjectId, user: User): Promise<Cart> {
+    try {
+      const cart = await this.cartModel.findOneAndUpdate(
+        {
+          _id: cartId,
+          user,
+        },
+        {
+          $inc: {
+            quantity: 1,
+          },
+        },
+        {
+          new: true,
+        },
+      );
+
+      if (!cart) {
+        throw new NotFoundException("Cart not found");
+      }
+
+      return cart;
+    } catch (error) {
+      throw new NotFoundException(error.message);
+    }
+  }
+
+  async dcQuantity(cartId: Types.ObjectId, user: User): Promise<Cart> {
+    try {
+      const cart = await this.cartModel.findOneAndUpdate(
+        {
+          _id: cartId,
+          user: user,
+          quantity: { $gt: 0 },
+        },
+        {
+          $inc: {
+            quantity: -1,
+          },
+        },
+        {
+          new: true,
+        },
+      );
+
+      if (!cart) {
+        throw new NotFoundException("Cart not found");
+      }
+
+      return cart;
+    } catch (error) {
+      throw new NotFoundException(error.message);
+    }
+  }
+
   async removeFromCart(cartId: Types.ObjectId, user: User): Promise<Cart> {
     try {
       const cart = await this.cartModel.findOneAndDelete({
