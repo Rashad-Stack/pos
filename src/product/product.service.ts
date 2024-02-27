@@ -27,14 +27,14 @@ export class ProductService {
 
     const count = this.productModel.countDocuments();
 
-    if (search) {
-      promise.or([{ name: { $regex: search, $options: "i" } }]);
-      count.or([{ name: { $regex: search, $options: "i" } }]);
-    }
-
     if (filter) {
       promise.or([{ category: filter }]);
       count.or([{ category: filter }]);
+    }
+
+    if (search) {
+      promise.or([{ name: { $regex: search, $options: "i" } }]);
+      count.or([{ name: { $regex: search, $options: "i" } }]);
     }
 
     const products = await promise

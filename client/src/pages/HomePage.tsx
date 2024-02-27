@@ -4,9 +4,9 @@ import CartCard from "@/components/CartCard";
 import CartHeaderButtons from "@/components/CartHeaderButtons";
 import Checkout from "@/components/Checkout";
 import CheckoutButton from "@/components/CheckoutButton";
-import ProductCard from "@/components/ProductCard";
 import ProductFilterByCategory from "@/components/ProductFilterByCategory";
 import ProductSearch from "@/components/ProductSearch";
+import ProductsList from "@/components/ProductsList";
 
 export default function HomePage() {
   return (
@@ -38,16 +38,7 @@ export default function HomePage() {
               <ProductSearch />
               <ProductFilterByCategory />
             </div>
-            <div className="grid grid-cols-2 gap-4 px-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-3 2xl:grid-cols-5">
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-            </div>
+            <ProductsList />
           </div>
         </div>
       </div>
