@@ -30,6 +30,7 @@ export default function HomePage() {
               <div className="flex justify-end">
                 <Checkout />
               </div>
+
               <CheckoutButton />
             </div>
           </div>
@@ -38,10 +39,12 @@ export default function HomePage() {
               <ProductSearch />
               <ProductFilterByCategory />
             </div>
+
             <ProductsList />
           </div>
         </div>
       </div>
+
       <CartButton />
     </section>
   );

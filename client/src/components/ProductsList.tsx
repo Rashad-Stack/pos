@@ -21,7 +21,7 @@ export default function ProductsList() {
         <div className="h-16 w-16 animate-spin rounded-full border-8 border-dashed border-indigo-400" />
       </div>
     );
-  if (error) return <p className="text-red-400">{error?.message}</p>;
+  if (error) throw new Error(error?.message);
 
   return (
     <div className="grid grid-cols-2 gap-4 px-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-3 2xl:grid-cols-5">

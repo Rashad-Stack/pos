@@ -23,12 +23,7 @@ export const GET_ALL_CATEGORIES = gql`
 `;
 
 export const GET_ALL_PRODUCTS = gql`
-  query GetAllProducts(
-    $limit: Int!
-    $page: Int!
-    $filter: ID
-    $search: String
-  ) {
+  query GetAllProducts($limit: Int, $page: Int, $filter: ID, $search: String) {
     allProducts(limit: $limit, page: $page, filter: $filter, search: $search) {
       total
       pages

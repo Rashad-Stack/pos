@@ -25,13 +25,13 @@ export default function ErrorPage() {
           </svg>
         </p>
         <h1 className="mt-3 text-2xl font-semibold text-gray-800 md:text-3xl">
-          Page {error?.statusText || "Not Found"}
+          Page {error?.statusText || error?.message || "Not Found"}
         </h1>
         <p className="mt-4 text-gray-500 dark:text-gray-400">
           {error?.data?.toString()}. Here are some helpful links:
         </p>
         <div className="mt-6 flex w-full shrink-0 items-center gap-x-3 sm:w-auto">
-          <button className="flex w-1/2 items-center justify-center gap-x-2 rounded-lg border bg-white px-5 py-2 text-sm text-gray-700 transition-colors duration-200 hover:bg-gray-100 sm:w-auto dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200 dark:hover:bg-gray-800">
+          <button className="flex w-1/2 items-center justify-center gap-x-2 rounded-lg border bg-white px-5 py-2 text-sm text-gray-700 transition-colors duration-200 hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200 dark:hover:bg-gray-800 sm:w-auto">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
