@@ -34,7 +34,7 @@ export class CartResolver {
   @Mutation(() => Cart)
   @UseGuards(AuthGuard)
   async removeFromCart(
-    @Args("productId", { type: () => ID }) productId: Types.ObjectId,
+    @Args("productId", { type: () => ID! }) productId: Types.ObjectId,
     @CurrentUser() user: User,
   ): Promise<Cart> {
     return await this.cartService.removeFromCart(productId, user);
