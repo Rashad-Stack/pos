@@ -17,8 +17,9 @@ export class CartResolver {
   async allCarts(
     @Args("limit", { type: () => Int, defaultValue: 10 }) limit: number,
     @Args("page", { type: () => Int, defaultValue: 1 }) page: number,
+    @CurrentUser() user: Types.ObjectId,
   ): Promise<ICart> {
-    return await this.cartService.findAll(limit, page);
+    return await this.cartService.findAll(limit, page, user);
   }
 
   @Mutation(() => Cart)

@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from "@nestjs/common";
+import {
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model, Types } from "mongoose";
 import { Product, ProductDocument } from "src/product/schema/product.schema";
@@ -14,18 +18,55 @@ export class CartService {
     private readonly productModel: Model<ProductDocument>,
   ) {}
 
-  async findAll(limit: number, page: number): Promise<ICart> {
-    const carts = await this.cartModel
-      .find()
-      .populate("product")
-      .populate("user")
-      .limit(limit)
-      .skip((page - 1) * limit);
+  async findAll(
+    limit: number,
+    page: number,
+    user: Types.ObjectId,
+  ): Promise<ICart> {
+    try {
+      const carts = await this.cartModel
+        .find({
+          user,
+        })
+        .populate("product")
+        .populate("user")
+        .sort({ createdAt: -1 })
+        .limit(limit)
+        .skip((page - 1) * limit);
 
-    const total = await this.cartModel.countDocuments();
-    const pages = Math.ceil(total / limit);
+      const total = await this.cartModel.countDocuments({
+        user,
+      });
 
-    return { total, pages, carts };
+      // Calculate subtotal
+      const totalCartAmount = await this.cartModel.aggregate([
+        {
+          $match: {
+            user: new Types.ObjectId(user),
+          },
+        },
+        {
+          $group: {
+            _id: null,
+            total: {
+              $sum: "$totalPrice",
+            },
+          },
+        },
+      ]);
+
+      const pages = Math.ceil(total / limit);
+      const subtotal = totalCartAmount[0]?.total || 0;
+
+      return {
+        total,
+        pages,
+        subtotal,
+        carts,
+      };
+    } catch (error) {
+      throw new InternalServerErrorException(error.message);
+    }
   }
 
   async addToCart(productId: Types.ObjectId, user: User): Promise<Cart> {

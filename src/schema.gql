@@ -77,6 +77,7 @@ type User {
 type allCarts {
   carts: [Cart!]!
   pages: Int!
+  subtotal: Int!
   total: Int!
 }
 

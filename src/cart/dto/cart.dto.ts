@@ -11,6 +11,10 @@ export class ICart {
   @IsNotEmpty()
   pages: number;
 
+  @Field(() => Int!)
+  @IsNotEmpty()
+  subtotal: number;
+
   @Field(() => [Cart])
   carts: Cart[];
 }
