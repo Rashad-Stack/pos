@@ -35,7 +35,7 @@ export class CartResolver {
   @UseGuards(AuthGuard)
   async increaseQuantity(
     @Args("productId", { type: () => ID! }) productId: Types.ObjectId,
-    @CurrentUser() user: User,
+    @CurrentUser() user: Types.ObjectId,
   ): Promise<Cart> {
     return await this.cartService.incQuantity(productId, user);
   }
@@ -44,7 +44,7 @@ export class CartResolver {
   @UseGuards(AuthGuard)
   async decreaseQuantity(
     @Args("productId", { type: () => ID! }) productId: Types.ObjectId,
-    @CurrentUser() user: User,
+    @CurrentUser() user: Types.ObjectId,
   ): Promise<Cart> {
     return await this.cartService.dcQuantity(productId, user);
   }
@@ -53,7 +53,7 @@ export class CartResolver {
   @UseGuards(AuthGuard)
   async removeFromCart(
     @Args("productId", { type: () => ID! }) productId: Types.ObjectId,
-    @CurrentUser() user: User,
+    @CurrentUser() user: Types.ObjectId,
   ): Promise<Cart> {
     return await this.cartService.removeFromCart(productId, user);
   }

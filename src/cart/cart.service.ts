@@ -89,26 +89,33 @@ export class CartService {
     }
   }
 
-  async incQuantity(cartId: Types.ObjectId, user: User): Promise<Cart> {
+  async incQuantity(
+    cartId: Types.ObjectId,
+    user: Types.ObjectId,
+  ): Promise<Cart> {
     try {
-      const cart = await this.cartModel.findOneAndUpdate(
-        {
-          _id: cartId,
-          user,
-        },
-        {
-          $inc: {
-            quantity: 1,
+      const cart = await this.cartModel
+        .findOneAndUpdate(
+          {
+            _id: cartId,
+            user: user,
           },
-        },
-        {
-          new: true,
-        },
-      );
+          { $inc: { quantity: 1 } }, // Increment quantity by 1
+          { new: true }, // Return the updated document
+        )
+        .populate("product");
 
       if (!cart) {
         throw new NotFoundException("Cart not found");
       }
+
+      // Calculate new total price based on the updated quantity and product's price
+      const product = cart.product as ProductDocument;
+      const newTotalPrice = cart.quantity * product.price;
+
+      // Update the total price
+      cart.totalPrice = newTotalPrice;
+      await cart.save();
 
       return cart;
     } catch (error) {
@@ -116,27 +123,34 @@ export class CartService {
     }
   }
 
-  async dcQuantity(cartId: Types.ObjectId, user: User): Promise<Cart> {
+  async dcQuantity(
+    cartId: Types.ObjectId,
+    user: Types.ObjectId,
+  ): Promise<Cart> {
     try {
-      const cart = await this.cartModel.findOneAndUpdate(
-        {
-          _id: cartId,
-          user: user,
-          quantity: { $gt: 0 },
-        },
-        {
-          $inc: {
-            quantity: -1,
+      const cart = await this.cartModel
+        .findOneAndUpdate(
+          {
+            _id: cartId,
+            user: user,
+            quantity: { $gt: 1 }, // Quantity should be greater than 1
           },
-        },
-        {
-          new: true,
-        },
-      );
+          { $inc: { quantity: -1 } }, // Decrement quantity by 1
+          { new: true }, // Return the updated document
+        )
+        .populate("product");
 
       if (!cart) {
         throw new NotFoundException("Cart not found");
       }
+
+      // Calculate new total price based on the updated quantity and product's price
+      const product = cart.product as ProductDocument;
+      const newTotalPrice = cart.quantity * product.price;
+
+      // Update the total price
+      cart.totalPrice = newTotalPrice;
+      await cart.save();
 
       return cart;
     } catch (error) {
@@ -144,7 +158,10 @@ export class CartService {
     }
   }
 
-  async removeFromCart(cartId: Types.ObjectId, user: User): Promise<Cart> {
+  async removeFromCart(
+    cartId: Types.ObjectId,
+    user: Types.ObjectId,
+  ): Promise<Cart> {
     try {
       const cart = await this.cartModel.findOneAndDelete({
         _id: cartId,
