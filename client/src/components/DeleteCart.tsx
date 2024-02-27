@@ -1,5 +1,5 @@
 import { REMOVE_FROM_CART } from "@/graphql/mutation";
-import { ALL_CARTS } from "@/graphql/query";
+import { GET_ALL_CARTS } from "@/graphql/query";
 import { useMutation } from "@apollo/client";
 import toast from "react-hot-toast";
 import { HiOutlineTrash } from "react-icons/hi2";
@@ -21,7 +21,7 @@ export default function DeleteCart({ id }: Props) {
         variables: {
           productId: id,
         },
-        refetchQueries: [{ query: ALL_CARTS }],
+        refetchQueries: [{ query: GET_ALL_CARTS }],
       }),
       {
         loading: `Removing from cart`,

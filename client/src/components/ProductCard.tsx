@@ -1,5 +1,5 @@
 import { ADD_TO_CART } from "@/graphql/mutation";
-import { ALL_CARTS } from "@/graphql/query";
+import { GET_ALL_CARTS } from "@/graphql/query";
 import { Product } from "@/types";
 import { useMutation } from "@apollo/client";
 import toast from "react-hot-toast";
@@ -16,7 +16,7 @@ export default function ProductCard({ product }: Props) {
     toast.promise(
       addToCart({
         variables: { productId: product._id },
-        refetchQueries: [{ query: ALL_CARTS }],
+        refetchQueries: [{ query: GET_ALL_CARTS }],
       }),
       {
         loading: "Adding to cart...",

@@ -37,8 +37,8 @@ export const GET_ALL_PRODUCTS = gql`
   }
 `;
 
-export const ALL_CARTS = gql`
-  query AllCarts($limit: Int, $page: Int) {
+export const GET_ALL_CARTS = gql`
+  query GetAllCarts($limit: Int, $page: Int) {
     allCarts(limit: $limit, page: $page) {
       total
       pages
