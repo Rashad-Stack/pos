@@ -8,3 +8,16 @@ export const SESSION = gql`
     }
   }
 `;
+
+export const GET_ALL_CATEGORIES = gql`
+  query GetAllCategory($limit: Int, $page: Int) {
+    getAllCategory(limit: $limit, page: $page) {
+      total
+      pages
+      categories {
+        _id
+        name
+      }
+    }
+  }
+`;

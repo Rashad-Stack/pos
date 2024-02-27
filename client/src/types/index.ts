@@ -3,3 +3,8 @@ export type CustomError = Error & {
   statusText: string;
   data: string;
 };
+
+export type Category = {
+  _id: string;
+  name: string;
+};
