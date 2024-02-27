@@ -42,6 +42,8 @@ export const ALL_CARTS = gql`
     allCarts(limit: $limit, page: $page) {
       total
       pages
+      subtotal
+      total
       carts {
         _id
         totalPrice
