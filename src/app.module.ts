@@ -3,16 +3,20 @@ import { Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
 import { GraphQLModule } from "@nestjs/graphql";
 import { MongooseModule } from "@nestjs/mongoose";
+import { ServeStaticModule } from "@nestjs/serve-static";
 import { join } from "path";
-import { UserModule } from "./user/user.module";
 import { AuthModule } from "./auth/auth.module";
+import { CartModule } from "./cart/cart.module";
 import { CategoryModule } from "./category/category.module";
 import { ProductModule } from "./product/product.module";
-import { CartModule } from "./cart/cart.module";
+import { UserModule } from "./user/user.module";
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, "..", "client", "dist"),
+    }),
     MongooseModule.forRoot(process.env.MONGO_URI),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
@@ -24,15 +28,10 @@ import { CartModule } from "./cart/cart.module";
       autoSchemaFile: join(process.cwd(), "src/schema.gql"),
       sortSchema: true,
     }),
-
     UserModule,
-
     AuthModule,
-
     CategoryModule,
-
     ProductModule,
-
     CartModule,
   ],
   controllers: [],
