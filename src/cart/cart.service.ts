@@ -88,4 +88,21 @@ export class CartService {
       throw new NotFoundException(error.message);
     }
   }
+
+  async removeFromCart(cartId: Types.ObjectId, user: User): Promise<Cart> {
+    try {
+      const cart = await this.cartModel.findOneAndDelete({
+        _id: cartId,
+        user,
+      });
+
+      if (!cart) {
+        throw new NotFoundException("Cart not found");
+      }
+
+      return cart;
+    } catch (error) {
+      throw new NotFoundException(error.message);
+    }
+  }
 }

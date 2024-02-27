@@ -13,6 +13,10 @@ type Props = {
 export default function CartCard({ cart }: Props) {
   const { product, quantity, totalPrice } = cart || {};
 
+  const spinner = (
+    <div className="h-4 w-4 animate-spin rounded-full border-2 border-gray-300 border-t-indigo-600" />
+  );
+
   return (
     <div className="flex items-center gap-2">
       <HiOutlinePencilSquare className="h-6 w-6" />

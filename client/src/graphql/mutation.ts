@@ -20,3 +20,13 @@ export const ADD_TO_CART = gql`
     }
   }
 `;
+
+export const REMOVE_FROM_CART = gql`
+  mutation RemoveFromCart($productId: ID!) {
+    removeFromCart(productId: $productId) {
+      _id
+      quantity
+      totalPrice
+    }
+  }
+`;

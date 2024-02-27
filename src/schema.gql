@@ -37,6 +37,7 @@ type Mutation {
   createUser(createUserInput: CreateUserInput!): Signup!
   login(loginInput: LoginInput!): LoggedInUser!
   logout: String!
+  removeFromCart(productId: ID!): Cart!
 }
 
 type Product {
